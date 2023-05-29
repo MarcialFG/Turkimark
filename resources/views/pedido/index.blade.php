@@ -15,7 +15,7 @@
     }
 
     .table-container .table {
-        background-color: #00cc66;
+        background-color: #238b57;
         border: 1px solid black;
         margin-top: 50px;
         width: 100%;
@@ -123,7 +123,7 @@
                         <tbody>
                             @foreach ($pedidos as $pedido)
                                 <tr>
-                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $pedido->id}}</td>
                                     <td>{{ $pedido->usuario_id }}</td>
                                     <td>{{ $pedido->nombre }}</td>
                                     <td>{{ $pedido->email }}</td>
@@ -142,9 +142,7 @@
                         </tbody>
                     </table>
                     @else
-
                         <h1>No hay pedidos realizados</h1>
-
                     @endif
                 </div>
             </div>

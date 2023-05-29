@@ -34,7 +34,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="volver-box">
-                            <a class="btn btn-primary" href="{{ route('productos.index') }}"> {{ __('Volver') }}</a>
+                            <a class="btn btn-primary" href="{{ route('Inicio') }}"> {{ __('Volver') }}</a>
                         </div>
                     </div>
 

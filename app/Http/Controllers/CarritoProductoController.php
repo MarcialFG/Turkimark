@@ -55,7 +55,7 @@ class CarritoProductoController extends Controller
 
         $carritoProducto = CarritoProducto::create($request->all());
 
-        return redirect()->route('carrito-productos.index')
+        return redirect()->route('Inicio')
             ->with('success', 'CarritoProducto created successfully.');
     }
 

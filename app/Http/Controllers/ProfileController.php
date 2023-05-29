@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -56,5 +57,15 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+     /**
+     * Delete the user
+     */
+    public function destroyUser($id)
+    {
+        $users = User::find($id)->delete();
+
+        return redirect()->route('Usuarios')
+            ->with('success', 'User deleted successfully');
     }
 }

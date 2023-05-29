@@ -15,7 +15,7 @@
     }
 
     .table-container .table {
-        background-color: #00cc66;
+        background-color: #238b57;
         border: 1px solid black;
         margin-top: 50px;
         width: 100%;
@@ -121,7 +121,7 @@
                         <tbody>
                             @foreach ($carritoProductos as $producto)
                                 <tr>
-                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $producto->id }}</td>
                                     <td>{{ $producto->producto->nombre }}</td>
                                     <td>{{ $producto->producto->precio }}€</td>
                                     <td>

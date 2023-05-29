@@ -16,6 +16,7 @@
                         {{ __('Inicio') }}
                     </x-nav-link>
                 </div>
+                @role('user')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" >
                     <x-nav-link :href="route('carrito-productos.index')" style="color: white">
                         {{ __('Carrito') }}
@@ -26,10 +27,16 @@
                         {{ __('Pedidos') }}
                     </x-nav-link>
                 </div>
+                @endrole
                 @role('admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('productos.index')" style="color: white">
                         {{ __('Productos') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('Usuarios')" :active="request()->routeIs('Usuarios')" style="color: white">
+                        {{ __('Usuarios') }}
                     </x-nav-link>
                 </div>
                 @endrole
@@ -39,7 +46,7 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150" style="background-color:#00cc66; color:white">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150" style="background-color:#ffffff; color:#238b57">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ml-1">

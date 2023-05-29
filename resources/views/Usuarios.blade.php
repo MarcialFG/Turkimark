@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Productos
+    Usuarios
 @endsection
 
 @section('content')
@@ -11,6 +11,7 @@
         padding-right: 100px;
         max-width: 2000px;
         margin: 0 auto;
+        
     }
 
     .table-container .table {
@@ -104,54 +105,46 @@
         border-bottom: 2px solid black;
     }
 </style>
+
+<body>
     <div class="container">
         <div class="row">
-                <div class="col-md-8">
-                    <div class="table-container">
-                        <h1 style="color: rgb(0, 0, 0); font-size: 4rem; font-family: 'Times New Roman', serif;">Productos</h1>  
-                        @if(count($productos) > 0)
-                        <div class="add-product-button">
-                            <a href="{{ route('productos.create') }}" class="btn btn-primary">Agregar producto</a>
-                        </div>
-                        <table class="table">
-                            <thead>
-                                <tr style="border-bottom: 2px solid black">
-                                    <th>Ref.</th>
-                                    <th>Nombre</th>
-                                    <th>Imagen</th>
-                                    <th>Precio</th>
-                                    <th>Detalles</th>
-                                    <th style="width: 50%;">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($productos as $producto)
+            <div class="col-md-8">
+                <div class="table-container">
+                    <h1 style="color: rgb(0, 0, 0); font-size: 4rem; font-family: 'Times New Roman', serif;">Usuarios</h1>  
+                    <table class="table">
+                        <thead>
+                            <tr style="border-bottom: 2px solid black">
+                                <th>Ref.</th>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Creación</th>
+                                <th style="width: 50%;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $users)
+                                @if ($users->id !== Auth::id())
                                     <tr>
-                                        <td>{{ $producto->id }}</td>
-                                        <td>{{ $producto->nombre }}</td>
-                                        <td>{{ $producto->imagen }}</td>
-                                        <td>{{ $producto->precio }}€</td>
-                                        <td>{{ $producto->detalles }}</td>
+                                        <td>{{ $users->id }}</td>
+                                        <td>{{ $users->name }}</td>
+                                        <td>{{ $users->email }}</td>
+                                        <td>{{ $users->created_at }}</td>
                                         <td>
-                                            <form action="{{ route('productos.destroy',$producto->id) }}" method="POST">
-                                                <a class="btn btn-sm btn-primary" href="{{ route('productos.show',$producto->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
-                                                <a class="btn btn-sm btn-success" href="{{ route('productos.edit',$producto->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
+                                            <form action="{{ route('profile.destroyUser', $users->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                             </form>
                                         </td>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        @else
-                        <div class="add-product-button">
-                            <a href="{{ route('productos.create') }}" class="btn btn-primary">Agregar producto</a>
-                        </div>
-                        @endif
-                    </div>
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
+            </div>
         </div>
     </div>
+</body>
 @endsection
