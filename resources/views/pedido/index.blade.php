@@ -112,10 +112,12 @@
                     <table class="table">
                         <thead>
                             <tr style="border-bottom: 2px solid black">
-                                <th>Ref.</th>
+                                <th>Pedido n.</th>
+                                @role('admin')
                                 <th>Ref.Usuario</th>
                                 <th>Nombre</th>
                                 <th>Email</th>
+                                @endrole
                                 <th>Estado</th>
                                 <th style="width: 50%;">Acciones</th>
                             </tr>
@@ -124,9 +126,11 @@
                             @foreach ($pedidos as $pedido)
                                 <tr>
                                     <td>{{ $pedido->id}}</td>
+                                    @role('admin')
                                     <td>{{ $pedido->usuario_id }}</td>
                                     <td>{{ $pedido->nombre }}</td>
                                     <td>{{ $pedido->email }}</td>
+                                    @endrole
                                     <td>{{ $pedido->estado}}</td>
                                     <td>
                                         <form action="{{ route('pedidos.destroy',$pedido->id) }}" method="POST">
@@ -134,7 +138,9 @@
                                             <a class="btn btn-sm btn-success" href="{{ route('pedidos.show',$pedido->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Mostrar') }}</a>
                                             @csrf
                                             @method('DELETE')
+                                            @role('admin')
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
+                                            @endrole
                                         </form>
                                     </td>
                                 </tr>

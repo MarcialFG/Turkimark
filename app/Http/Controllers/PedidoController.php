@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Pedido;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\CarritoProducto;
+use App\Carrito;
+use App\PedidoProducto;;
 
 /**
  * Class PedidoController
@@ -42,14 +46,42 @@ class PedidoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+{
         request()->validate(Pedido::$rules);
-        
-        $pedido = Pedido::create($request->all());
+    
+    // Crear el pedido
+    $pedido = Pedido::create($request->all());
 
-        return redirect()->route('pedidos.index')
-            ->with('success', 'Pedido created successfully.');
+    // Obtener el usuario autenticado
+    $usuario_id = Auth::user()->id;
+
+    // Obtener el carrito del usuario autenticado
+    $carrito = Carrito::where('usuario_id', $usuario_id)->first();
+
+    if ($carrito) {
+        // Obtener los productos del carrito
+        $productosCarrito = CarritoProducto::where('carrito_id', $carrito->id)->get();
+
+        // Guardar los productos del carrito en la tabla "pedido_productos"
+        foreach ($productosCarrito as $producto) {
+            PedidoProducto::create([
+                'pedido_id' => $pedido->id,
+                'producto_id' => $producto->producto_id,
+                'precio' => $producto->precio,
+                'cantidad' => 1,
+            ]);
+        }
+
+        // Borrar los productos del carrito
+        $productosCarrito->each(function ($producto) {
+            $producto->delete();
+        });
     }
+
+    return redirect()->route('pedidos.index')
+        ->with('success', 'Pedido creado exitosamente.');
+}
+
 
     /**
      * Display the specified resource.

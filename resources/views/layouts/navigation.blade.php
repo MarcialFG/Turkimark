@@ -22,12 +22,12 @@
                         {{ __('Carrito') }}
                     </x-nav-link>
                 </div>
+                @endrole
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('pedidos.index')" style="color: white">
                         {{ __('Pedidos') }}
                     </x-nav-link>
                 </div>
-                @endrole
                 @role('admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('productos.index')" style="color: white">
