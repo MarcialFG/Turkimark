@@ -6,58 +6,117 @@
 
 @section('content')
 <style>
-    .volver-box {
-        background-color: green;
-        padding: 10px;
-        text-align: left;
-        margin: 20px;
-    }
+    .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-    .volver-box a {
-        color: white;
-    }
 
-    .producto-datos {
-        text-align: center;
-    }
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
 
-    .producto-imagen {
-        max-width: 400px;
-        margin: 0 auto;
-    }
-</style>
+.producto-datos {
+    position: relative;
+}
 
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-container {
+    width: 400px;
+    height: 400px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-details {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.product-name {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.product-price {
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.product-details-text {
+    font-size: 16px;
+}
+
+.volver-box {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background-color: #207807;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 24px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0069d9;
+}
+
+
+    </style>
 
     <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="volver-box">
-                            <a class="btn btn-primary" href="{{ route('Inicio') }}"> {{ __('Volver') }}</a>
-                        </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body producto-datos">
+                    <div class="image-container">
+                        <img src="{{asset('imagenes/' .$producto->imagen)}}" class="card-img-top">
                     </div>
-
-                    <div class="card-body producto-datos">
-                        <div class="form-group">
-                            <img src="{{'/storage/imagenes/'.$producto->imagen }}" class="card-img-top" style="width: 400px; height: 400px;">
-                        </div>
+                    <div class="product-details">
                         <div class="form-group">
                             <strong>Nombre:</strong>
-                            {{ $producto->nombre }}
+                            <span class="product-name">{{ $producto->nombre }}</span>
                         </div>
                         <div class="form-group">
                             <strong>Precio:</strong>
-                            {{ $producto->precio }}€
+                            <span class="product-price">{{ $producto->precio }}€ IVA incl.</span>
                         </div>
                         <div class="form-group">
                             <strong>Detalles:</strong>
-                            {{ $producto->detalles }}
+                            <span class="product-details-text">{{ $producto->detalles }}</span>
                         </div>
+                    </div>
+                    <div class="volver-box">
+                        <a class="btn btn-primary" href="{{ route('Inicio') }}"> {{ __('Volver') }}</a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 @endsection
 

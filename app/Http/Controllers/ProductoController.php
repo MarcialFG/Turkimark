@@ -46,10 +46,11 @@ class ProductoController extends Controller
         
         request()->validate(Producto::$rules);
     
-        $producto = new Producto(); 
-        $file=$request->file('imagen');
-        $name=$file->getClientOriginalName();
-        $file->storeAs('imagenes',$name,['disk'=>'public']);
+        $producto = new Producto();
+        $file = $request->file('imagen');
+        $name = $file->getClientOriginalName();
+        $file->move(public_path('imagenes'), $name);
+
 
         $producto->nombre = $request->input('nombre');
         $producto->precio = $request->input('precio');

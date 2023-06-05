@@ -16,14 +16,13 @@ class PedidoProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $pedidoProductos = PedidoProducto::paginate();
-
+        $pedidoProductos = PedidoProducto::where('pedido_id', $id)->paginate();
+    
         return view('pedido-producto.index', compact('pedidoProductos'))
             ->with('i', (request()->input('page', 1) - 1) * $pedidoProductos->perPage());
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -106,4 +105,5 @@ class PedidoProductoController extends Controller
         return redirect()->route('pedido-productos.index')
             ->with('success', 'PedidoProducto deleted successfully');
     }
+
 }

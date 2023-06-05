@@ -22,11 +22,18 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        $pedidos = Pedido::paginate();
-
-        return view('pedido.index', compact('pedidos'))
-            ->with('i', (request()->input('page', 1) - 1) * $pedidos->perPage());
+        $user = auth()->user();
+    
+        if ($user->hasRole('admin')) {
+            $pedidos = Pedido::all();
+        } else {
+            $pedidos = Pedido::where('usuario_id', $user->id)->get();
+        }
+    
+        return view('pedido.index', compact('pedidos'));
     }
+    
+    
 
     /**
      * Show the form for creating a new resource.

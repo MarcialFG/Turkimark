@@ -94,7 +94,7 @@
       </nav>
     </header>
     <main> 
-      <img src="{{'/storage/imagenes/logo.png'}}" class="card-img-top">
+      <img src="{{asset('imagenes/logo.png')}}" class="card-img-top">
       <h2>Encuentra los mejores productos tecnológicos al mejor precio.</h2>
       <div class="login-register">
         <div class="login-register-box">

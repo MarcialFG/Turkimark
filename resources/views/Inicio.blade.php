@@ -30,7 +30,7 @@
                     <div class="col-md-3 mb-4">
                         <div class="card shadow-sm" style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 50px;">
                             <a href="{{ route('productos.show', $producto->id) }}">
-                                <img class="zoom" src="{{'/storage/imagenes/'.$producto->imagen }}" class="card-img-top" style="width: 400px; height: 400px;">
+                                <img class="zoom" src="{{ asset('imagenes/' .$producto->imagen)}}" class="card-img-top" style="width: 400px; height: 400px;">
                             </a>
                             <div class="card-body">
                                 <h5 class="card-title" style="font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.5rem;">{{ $producto->nombre }}</h5>
@@ -39,6 +39,7 @@
                                     @php
                                         $carrito = \App\Carrito::where('usuario_id', auth()->user()->id)->first();
                                     @endphp
+                                    @role('user')
                                     @if ($carrito)
                                         <form method="POST" action="{{ route('carrito-productos.store') }}">
                                             @csrf
@@ -49,6 +50,7 @@
                                             <button type="submit" class="btn btn-primary">Añadir al carrito</button>
                                         </form>
                                     @endif
+                                    @endrole
                                 </div>
                             </div>
                         </div>

@@ -41,7 +41,7 @@
                                 <tbody>
                                     @foreach ($pedidoProductos as $pedidoProducto)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
+                                       
                                             
 											<td>{{ $pedidoProducto->pedido_id }}</td>
 											<td>{{ $pedidoProducto->producto_id }}</td>

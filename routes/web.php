@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CarritoController;
 use App\Producto;
+use App\PedidoProducto;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,15 @@ Route::get('/Inicio', function () {
     return view('Inicio')->with('productos', $productos);
 })->middleware(['auth', 'verified'])->name('Inicio');
 
+Route::get('/ProductosPedidos/{Id}', function ($id) {
+    $pedidoProductos = PedidoProducto::where('pedido_id', $id)->paginate();
+    return view('ProductosPedidos')->with('pedidoProductos', $pedidoProductos);
+})->middleware(['auth', 'verified'])->name('ProductosPedidos');
+
+Route::get('/EditarUsuarios/{Id}', function ($id) {
+    $EditarUsuarios = User::where('id', $id)->paginate();
+    return view('EditarUsuarios')->with('EditarUsuarios', $EditarUsuarios);
+})->middleware(['auth', 'verified'])->name('EditarUsuarios');
 
 Route::resource('carritos', App\Http\Controllers\CarritoController::class);
 
@@ -43,7 +53,6 @@ Route::resource('pedido-producto', App\Http\Controllers\PedidoProductoController
 Route::resource('carrito-productos', App\Http\Controllers\CarritoProductoController::class);
 
 Route::delete('/profile/{id}', [ProfileController::class, 'destroyUser'])->name('profile.destroyUser');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
