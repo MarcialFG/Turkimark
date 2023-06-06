@@ -15,29 +15,25 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
-    {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
-    }
+    public function edit()
+{
+    $user = User::find(Auth::user()->id);
+
+    return view('profile.edit')->with('user', $user);
+}
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
+   public function update(Request $request, $id)
+{
+    $user = User::find($id);
+    $user->name = $request->input('name');
+    $user->email = $request->input('email');
+    $user->update();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
-
+    return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado correctamente');
+}
     /**
      * Delete the user's carrito.
      */

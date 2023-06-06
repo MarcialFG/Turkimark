@@ -105,7 +105,16 @@
         border-bottom: 2px solid black;
     }
 </style>
-
+<script>
+    function confirmDelete(){
+        var respuesta = confirm("¿Estas seguro de eliminar el ususario?")
+        if(respuesta == true){
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
 <body>
     <div class="container">
         <div class="row">
@@ -134,7 +143,7 @@
                                             <form action="{{ route('profile.destroyUser', $users->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirmDelete()"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                             </form>
                                         </td>
                                     </tr>

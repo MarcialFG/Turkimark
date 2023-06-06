@@ -111,7 +111,7 @@ class ProductoController extends Controller
         $data['imagen'] = $nombreImagen;
 
         // Mover la imagen cargada a la ubicación deseada
-        $request->file('imagen')->move(public_path('/storage/imagenes/'), $nombreImagen);
+        $request->file('imagen')->move(public_path('imagenes'), $nombreImagen);
     }
 
     $producto->update($data);

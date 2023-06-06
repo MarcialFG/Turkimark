@@ -37,10 +37,11 @@ Route::get('/ProductosPedidos/{Id}', function ($id) {
     return view('ProductosPedidos')->with('pedidoProductos', $pedidoProductos);
 })->middleware(['auth', 'verified'])->name('ProductosPedidos');
 
-Route::get('/EditarUsuarios/{Id}', function ($id) {
-    $EditarUsuarios = User::where('id', $id)->paginate();
+Route::get('/EditarUsuarios/{id}', function ($id) {
+    $EditarUsuarios = User::where('id', $id)->first();
     return view('EditarUsuarios')->with('EditarUsuarios', $EditarUsuarios);
 })->middleware(['auth', 'verified'])->name('EditarUsuarios');
+
 
 Route::resource('carritos', App\Http\Controllers\CarritoController::class);
 
