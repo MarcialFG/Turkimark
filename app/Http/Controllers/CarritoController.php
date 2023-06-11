@@ -23,8 +23,6 @@ class CarritoController extends Controller
         return view('carrito.index', compact('carritos'))
                ->with('i', (request()->input('page', 1) - 1) * 10);
     }
-    
-    
 
     /**
      * Show the form for creating a new resource.

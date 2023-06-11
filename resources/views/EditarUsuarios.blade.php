@@ -58,7 +58,10 @@
 
     <form action="{{ route('profile.update', $EditarUsuarios->id) }}" method="POST">
         @csrf
-        <input type="hidden" name="_method" value="PUT">
+        @method('PATCH')
+
+        <!-- Campo oculto para la ID del usuario autenticado -->
+        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 
         <div class="form-group">
             <label for="name">Nombre</label>
@@ -73,5 +76,7 @@
         <button type="submit">Guardar</button>
     </form>
 </div>
+
+
 
 @endsection

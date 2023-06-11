@@ -93,7 +93,7 @@
                     </div>
 
                     <div class="btn-group">
-                        <a href="{{ route('EditarUsuarios', ['id' => auth()->user()->id]) }}" class="btn btn-primary">Editar datos</a>
+                    <a href="{{ route('EditarUsuarios', ['id' => auth()->user()->id]) }}" class="btn btn-primary">Editar datos</a>
                         <form action="{{ route('profile.destroyUser', ['id' => auth()->user()->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')

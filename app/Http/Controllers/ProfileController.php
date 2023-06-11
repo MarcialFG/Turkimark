@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
 
+
 class ProfileController extends Controller
 {
     /**
@@ -25,17 +26,19 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-   public function update(Request $request, $id)
-{
-    $user = User::find($id);
-    $user->name = $request->input('name');
-    $user->email = $request->input('email');
-    $user->update();
-
-    return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado correctamente');
-}
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        
+        $user->save();
+    
+        return redirect()->route('Inicio')->with('success', 'Usuario actualizado correctamente');
+    }
+    
     /**
-     * Delete the user's carrito.
+     * Delete the user(método por defecto para plantillla blade)
      */
     public function destroy(Request $request): RedirectResponse
     {
@@ -55,7 +58,7 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
      /**
-     * Delete the user
+     * Delete the user(metodo nuevo para utilizarlo en la vista normal)
      */
     public function destroyUser($id)
     {

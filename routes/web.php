@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Rutas para vistas sin controlador
 Route::get('/', function () {
     return view('welcome');
 });
@@ -42,7 +43,7 @@ Route::get('/EditarUsuarios/{id}', function ($id) {
     return view('EditarUsuarios')->with('EditarUsuarios', $EditarUsuarios);
 })->middleware(['auth', 'verified'])->name('EditarUsuarios');
 
-
+//Rutas para vistas con controlador
 Route::resource('carritos', App\Http\Controllers\CarritoController::class);
 
 Route::resource('pedidos', App\Http\Controllers\PedidoController::class);
@@ -53,11 +54,13 @@ Route::resource('pedido-producto', App\Http\Controllers\PedidoProductoController
 
 Route::resource('carrito-productos', App\Http\Controllers\CarritoProductoController::class);
 
+//Ruta específica para utilizar el método "destroyUser"
 Route::delete('/profile/{id}', [ProfileController::class, 'destroyUser'])->name('profile.destroyUser');
 
+//Rutas para el perfil del ususario
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::match(['put', 'patch'], '/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
@@ -65,6 +68,7 @@ require __DIR__.'/auth.php';
 
 Auth::routes();
 
+//Ruta para la pantalla inicial
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 

@@ -24,10 +24,10 @@ class PedidoController extends Controller
     {
         $user = auth()->user();
     
-        if ($user->hasRole('admin')) {
-            $pedidos = Pedido::all();
-        } else {
-            $pedidos = Pedido::where('usuario_id', $user->id)->get();
+        if ($user->hasRole('admin')) { //si el usuario autentificado tiene el rol "admin" asociado
+            $pedidos = Pedido::all();   //recoge todos los pedidos
+        } else { //si el usuario autentificado tiene un rol diferente
+            $pedidos = Pedido::where('usuario_id', $user->id)->get(); //recoge los pedidos que tengan su id asociado
         }
     
         return view('pedido.index', compact('pedidos'));

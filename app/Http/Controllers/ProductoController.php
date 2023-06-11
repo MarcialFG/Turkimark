@@ -45,18 +45,21 @@ class ProductoController extends Controller
     {
         
         request()->validate(Producto::$rules);
-    
+        //crear nuevo producto
         $producto = new Producto();
+        //se recoge la imagen insertada
         $file = $request->file('imagen');
+        // Obtener el nombre original del archivo
         $name = $file->getClientOriginalName();
+        // se guarda en la carpeta pública imagenes para que se pueda utilizar siempre
         $file->move(public_path('imagenes'), $name);
 
-
+        // insertamos los datos del producto
         $producto->nombre = $request->input('nombre');
         $producto->precio = $request->input('precio');
         $producto->imagen = $name;
         $producto->detalles = $request->input('detalles');
-
+        //guardamos el producto
         $producto->save();
 
         return redirect()->route('productos.index')
@@ -110,10 +113,10 @@ class ProductoController extends Controller
         // Asignar el nombre original al campo de la imagen en los datos a actualizar
         $data['imagen'] = $nombreImagen;
 
-        // Mover la imagen cargada a la ubicación deseada
+        // se mueve la imagen cargada a la ubicación de las imagenes
         $request->file('imagen')->move(public_path('imagenes'), $nombreImagen);
     }
-
+     //se actualiza
     $producto->update($data);
 
     return redirect()->route('productos.index')
